@@ -11,6 +11,14 @@
 [license-image]: https://img.shields.io/badge/license-BSD-green.svg?style=flat
 [license]: https://github.com/PointCloudLibrary/pcl/blob/master/LICENSE.txt
 
+Important: Build for iOS
+-------
+
+- Build [boost-iosx](https://github.com/apotocki/boost-iosx) on Mac.
+- Add the boost libs path to CMakeLists.txt.
+- Add the other libs path i.e FLANN, LZ4 from [this](https://github.com/DaisukeNakajima001/PCL_PointCloud_MeshingTest/) repo.
+- Add all the required libs i.e boost, FLANN, LZ4 to unity so that Xcode can find the symbols.
+
 Website
 -------
 
