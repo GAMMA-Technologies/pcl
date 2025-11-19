@@ -319,10 +319,15 @@ endif()
 find_package(Threads REQUIRED)
 
 # Eigen3 (required)
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-if(NOT EIGEN3_FOUND AND Eigen3_FOUND)
-    set(EIGEN3_FOUND ${Eigen3_FOUND})
-endif()
+#find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+#if(NOT EIGEN3_FOUND AND Eigen3_FOUND)
+#    set(EIGEN3_FOUND ${Eigen3_FOUND})
+#endif()
+
+include_directories(/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/eigen/eigen3)
+include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+set(EIGEN3_FOUND true)
+
 
 # FLANN
 find_package(FLANN 1.9.1)
@@ -333,6 +338,10 @@ else()
     message(FATAL_ERROR "Flann was selected with ${PCL_FLANN_REQUIRED_TYPE} but found as ${FLANN_LIBRARY_TYPE}")
   endif()
 endif()
+
+set(LZ4_INCLUDE_DIR "/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/lz4/include")
+set(LZ4_LIBRARY_DIR "/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/lz4/lib")
+include_directories(${LZ4_INCLUDE_DIR})
 
 # libusb
 option(WITH_LIBUSB "Build USB RGBD-Camera drivers" TRUE)

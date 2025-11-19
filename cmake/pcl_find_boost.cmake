@@ -20,15 +20,22 @@ set(Boost_ADDITIONAL_VERSIONS
   "1.69.0" "1.69" "1.68.0" "1.68" "1.67.0" "1.67" "1.66.0" "1.66" "1.65.1" "1.65.0" "1.65")
 
 # Optional boost modules
-find_package(Boost 1.65.0 QUIET COMPONENTS serialization mpi)
-if(Boost_SERIALIZATION_FOUND)
-  set(BOOST_SERIALIZATION_FOUND TRUE)
-endif()
+#find_package(Boost 1.65.0 QUIET COMPONENTS serialization mpi)
+#if(Boost_SERIALIZATION_FOUND)
+# set(BOOST_SERIALIZATION_FOUND TRUE)
+#endif()
+
+set(Boost_NO_BOOST_CMAKE ON)
+set(Boost_INCLUDE_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/")
+set(Boost_LIBRARY_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/stage/ios-arm64/lib")
 
 # Required boost modules
-set(BOOST_REQUIRED_MODULES filesystem iostreams system)
-find_package(Boost 1.65.0 REQUIRED COMPONENTS ${BOOST_REQUIRED_MODULES})
+#set(BOOST_REQUIRED_MODULES filesystem iostreams system)
+#find_package(Boost 1.65.0 REQUIRED COMPONENTS ${BOOST_REQUIRED_MODULES})
 
-if(Boost_FOUND)
+#if(Boost_FOUND)
   set(BOOST_FOUND TRUE)
-endif()
+  add_definitions(${Boost_LIB_DIAGNOSTIC_DEFINITIONS})
+  include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+  link_directories(${Boost_LIBRARY_DIRS})
+#endif()

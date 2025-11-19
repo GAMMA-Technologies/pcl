@@ -211,7 +211,7 @@ if(MINGW)
 endif()
 PCL_ADD_INCLUDES("${SUBSYS_NAME}" "${SUBSYS_NAME}/ply" ${PLY_INCLUDES})
 target_include_directories(pcl_io_ply PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(pcl_io_ply pcl_common Boost::boost)
+target_link_libraries(pcl_io_ply pcl_common ${Boost_LIBRARIES})
 
 set(srcs
   src/debayer.cpp
@@ -226,12 +226,12 @@ set(srcs
   src/obj_io.cpp
   src/ifs_io.cpp
   src/image_grabber.cpp
-  src/hdl_grabber.cpp
-  src/vlp_grabber.cpp
-  src/robot_eye_grabber.cpp
+  #src/hdl_grabber.cpp
+  #src/vlp_grabber.cpp
+  #src/robot_eye_grabber.cpp
   src/auto_io.cpp
   src/io_exception.cpp
-  src/tim_grabber.cpp
+  #src/tim_grabber.cpp
   ${VTK_IO_SOURCE}
   ${OPENNI_GRABBER_SOURCES}
   ${OPENNI2_GRABBER_SOURCES}
@@ -279,12 +279,12 @@ set(incs
   "include/pcl/${SUBSYS_NAME}/ascii_io.h"
   "include/pcl/${SUBSYS_NAME}/ifs_io.h"
   "include/pcl/${SUBSYS_NAME}/image_grabber.h"
-  "include/pcl/${SUBSYS_NAME}/hdl_grabber.h"
-  "include/pcl/${SUBSYS_NAME}/vlp_grabber.h"
-  "include/pcl/${SUBSYS_NAME}/robot_eye_grabber.h"
+  #"include/pcl/${SUBSYS_NAME}/hdl_grabber.h"
+  #"include/pcl/${SUBSYS_NAME}/vlp_grabber.h"
+  #"include/pcl/${SUBSYS_NAME}/robot_eye_grabber.h"
   "include/pcl/${SUBSYS_NAME}/point_cloud_image_extractors.h"
   "include/pcl/${SUBSYS_NAME}/io_exception.h"
-  "include/pcl/${SUBSYS_NAME}/tim_grabber.h"
+  #"include/pcl/${SUBSYS_NAME}/tim_grabber.h"
   ${VTK_IO_INCLUDES}
   ${OPENNI_GRABBER_INCLUDES}
   ${OPENNI2_GRABBER_INCLUDES}
@@ -343,7 +343,7 @@ PCL_ADD_LIBRARY(${LIB_NAME} COMPONENT ${SUBSYS_NAME} SOURCES ${srcs} ${incs} ${c
 
 target_include_directories(${LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-target_link_libraries("${LIB_NAME}" Boost::boost Boost::filesystem Boost::iostreams pcl_common pcl_io_ply)
+target_link_libraries("${LIB_NAME}" ${Boost_LIBRARIES} pcl_common pcl_io_ply)
 
 if(VTK_FOUND)
   if(${VTK_VERSION} VERSION_GREATER_EQUAL 9.0)
