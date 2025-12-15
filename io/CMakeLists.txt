@@ -98,7 +98,7 @@ if(WITH_OPENNI)
     include/pcl/io/openni_camera/openni_image_yuv_422.h
     include/pcl/io/openni_camera/openni_image_rgb24.h
     include/pcl/io/openni_camera/openni_ir_image.h
-     ${IMAGE_INCLUDES}
+    ${IMAGE_INCLUDES}
   )
   set(OPENNI_GRABBER_SOURCES
     src/openni_camera/openni_device.cpp
@@ -163,10 +163,10 @@ endif()
 
 if(WITH_RSSDK2)
   set(RSSDK2_GRABBER_INCLUDES
-      include/pcl/io/real_sense_2_grabber.h
+    include/pcl/io/real_sense_2_grabber.h
   )
   set(RSSDK2_GRABBER_SOURCES
-      src/real_sense_2_grabber.cpp
+    src/real_sense_2_grabber.cpp
   )
 endif()
 
@@ -215,21 +215,21 @@ target_link_libraries(pcl_io_ply pcl_common ${Boost_LIBRARIES})
 
 set(srcs
   src/debayer.cpp
-  src/pcd_grabber.cpp
-  src/pcd_io.cpp
-  src/vtk_io.cpp
-  src/ply_io.cpp
-  src/ascii_io.cpp
+  #src/pcd_grabber.cpp
+  #src/pcd_io.cpp
+  #src/vtk_io.cpp
+  #src/ply_io.cpp
+  #src/ascii_io.cpp
   src/compression.cpp
   src/lzf.cpp
-  src/lzf_image_io.cpp
-  src/obj_io.cpp
-  src/ifs_io.cpp
-  src/image_grabber.cpp
+  #src/lzf_image_io.cpp
+  #src/obj_io.cpp
+  #src/ifs_io.cpp
+  #src/image_grabber.cpp
   #src/hdl_grabber.cpp
   #src/vlp_grabber.cpp
   #src/robot_eye_grabber.cpp
-  src/auto_io.cpp
+  #src/auto_io.cpp
   src/io_exception.cpp
   #src/tim_grabber.cpp
   ${VTK_IO_SOURCE}
@@ -311,9 +311,9 @@ if(PNG_FOUND)
     include/pcl/compression/libpng_wrapper.h
   )
   if(WITH_OPENNI OR WITH_OPENNI2)
-  list(APPEND compression_incs
-    include/pcl/compression/organized_pointcloud_compression.h
-  )
+    list(APPEND compression_incs
+      include/pcl/compression/organized_pointcloud_compression.h
+    )
   endif()
 endif()
 
@@ -347,18 +347,18 @@ target_link_libraries("${LIB_NAME}" ${Boost_LIBRARIES} pcl_common pcl_io_ply)
 
 if(VTK_FOUND)
   if(${VTK_VERSION} VERSION_GREATER_EQUAL 9.0)
-    target_link_libraries("${LIB_NAME}" 
-                          VTK::FiltersGeneral
-                          VTK::IOImage
-                          VTK::IOGeometry
-                          VTK::IOPLY)
+    target_link_libraries("${LIB_NAME}"
+      VTK::FiltersGeneral
+      VTK::IOImage
+      VTK::IOGeometry
+      VTK::IOPLY)
   else()
     link_directories(${VTK_LINK_DIRECTORIES})
     target_link_libraries("${LIB_NAME}"
-                          vtkIOImage
-                          vtkIOGeometry
-                          vtkIOPLY
-                          )
+      vtkIOImage
+      vtkIOGeometry
+      vtkIOPLY
+    )
     if(${VTK_VERSION} VERSION_LESS 8.0)
       target_link_libraries("${LIB_NAME}" vtkIOMPIImage vtkIOMPIParallel)
       if(${VTK_VERSION} VERSION_GREATER_EQUAL 7.0)
@@ -392,7 +392,7 @@ endif()
 if(WITH_FZAPI)
   target_link_libraries("${LIB_NAME}" ${FZAPI_LIBS})
   if(WIN32)
-  target_link_libraries("${LIB_NAME}" Version.lib)
+    target_link_libraries("${LIB_NAME}" Version.lib)
   endif()
 endif()
 

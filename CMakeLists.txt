@@ -45,8 +45,8 @@ endif()
 
 # Update the documentation string of CMAKE_BUILD_TYPE for GUIs
 set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}" CACHE STRING
-    "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
-    FORCE)
+  "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
+  FORCE)
 
 # Compiler identification
 # Define a variable CMAKE_COMPILER_IS_X where X is the compiler short name.
@@ -70,9 +70,9 @@ std::atomic<big> x;
 int main() {
    return x.load().foo[13];
 }"
-LIBATOMIC_NOT_NEEDED)
-IF (NOT LIBATOMIC_NOT_NEEDED)
-    SET(ATOMIC_LIBRARY "atomic")
+  LIBATOMIC_NOT_NEEDED)
+IF(NOT LIBATOMIC_NOT_NEEDED)
+  SET(ATOMIC_LIBRARY "atomic")
 ENDIF()
 
 # Create a variable with expected default CXX flags
@@ -89,7 +89,7 @@ include("${PCL_SOURCE_DIR}/cmake/pcl_options.cmake")
 include("${PCL_SOURCE_DIR}/cmake/clang-format.cmake")
 
 if(${PCL_ENABLE_CCACHE})
-  include (UseCompilerCache)
+  include(UseCompilerCache)
   UseCompilerCache(ccache REQUIRED)
 endif()
 
@@ -114,7 +114,7 @@ endif()
 # ---[ Unix/Darwin/Windows specific flags
 if(CMAKE_COMPILER_IS_GNUCXX)
   if("${CMAKE_CXX_FLAGS}" STREQUAL "${CMAKE_CXX_FLAGS_DEFAULT}")
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7)
       string(APPEND CMAKE_CXX_FLAGS " -Wabi=11")
     else()
       string(APPEND CMAKE_CXX_FLAGS " -Wabi")
@@ -145,7 +145,7 @@ endif()
 
 if(CMAKE_COMPILER_IS_MSVC)
   add_definitions("-DBOOST_ALL_NO_LIB -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS -DNOMINMAX -DPCL_ONLY_CORE_POINT_TYPES ${SSE_DEFINITIONS}")
-  
+
   if("${CMAKE_CXX_FLAGS}" STREQUAL "${CMAKE_CXX_FLAGS_DEFAULT}")
     string(APPEND CMAKE_CXX_FLAGS " /fp:precise ${SSE_FLAGS} ${AVX_FLAGS}")
 
@@ -156,7 +156,7 @@ if(CMAKE_COMPILER_IS_MSVC)
       string(APPEND CMAKE_EXE_LINKER_FLAGS_RELEASE " /LTCG")
     else()
       set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=/bigobj")
-      
+
       message("Global optimizations /GL has been turned off, as it doesn't work with nvcc/thrust")
     endif()
     # /MANIFEST:NO") # please, don't disable manifest generation, otherwise crash at start for vs2008
@@ -173,8 +173,8 @@ if(CMAKE_COMPILER_IS_MSVC)
       # CMake supports external includes for Visual Studio also since 3.24.0 (see https://gitlab.kitware.com/cmake/cmake/-/merge_requests/7238)
       if(CMAKE_C_COMPILER_VERSION VERSION_LESS "19.29.30036.3" OR CMAKE_VERSION VERSION_LESS 3.22.0 OR (CMAKE_VERSION VERSION_LESS 3.24.0 AND CMAKE_GENERATOR MATCHES "Visual Studio"))
         message(WARNING "With the used combination of compiler and CMake version it is not recommended to activate PCL_WARNINGS_ARE_ERRORS, "
-                        "because also warnings from 3rd party components are marked as errors. It is recommended to upgrade to "
-                        "Visual Studio 2019 version 16.10.0 and CMake 3.24.0 (or CMake 3.22.0 if using Ninja or NMake files).")
+          "because also warnings from 3rd party components are marked as errors. It is recommended to upgrade to "
+          "Visual Studio 2019 version 16.10.0 and CMake 3.24.0 (or CMake 3.22.0 if using Ninja or NMake files).")
       endif()
       string(APPEND CMAKE_CXX_FLAGS " /WX")
     endif()
@@ -182,7 +182,7 @@ if(CMAKE_COMPILER_IS_MSVC)
     include(ProcessorCount)
     ProcessorCount(CPUCores)
     set(MSVC_MP ${CPUCores} CACHE STRING "Number of simultaneously running compilers (0 = automatic detection by MSVC). See documentation of /MP flag.")
-    if (CMAKE_VERSION VERSION_LESS 3.11.0)
+    if(CMAKE_VERSION VERSION_LESS 3.11.0)
       # Usage of COMPILE_LANGUAGE generator expression for MSVC in add_compile_options requires at least CMake 3.11, see https://gitlab.kitware.com/cmake/cmake/issues/17435
       if(MSVC_MP EQUAL 0)
         # MSVC_MP is 0 in case the information cannot be determined by ProcessorCount => fallback
@@ -191,8 +191,8 @@ if(CMAKE_COMPILER_IS_MSVC)
       elseif(MSVC_MP GREATER 1)
         string(APPEND CMAKE_C_FLAGS " /MP${MSVC_MP}")
         string(APPEND CMAKE_CXX_FLAGS " /MP${MSVC_MP}")
-      endif()      
-    else()      
+      endif()
+    else()
       if(MSVC_MP EQUAL 0)
         # MSVC_MP is 0 in case the information cannot be determined by ProcessorCount => fallback
         # Generator expression is necessary to limit /MP flag to C/CXX, so flag will be not set to e.g. CUDA (see https://gitlab.kitware.com/cmake/cmake/issues/17535)
@@ -275,21 +275,21 @@ else()
   set(UNINSTALL_TARGET_NAME uninstall)
 endif()
 configure_file("${PCL_SOURCE_DIR}/cmake/uninstall_target.cmake.in"
-               "${PCL_BINARY_DIR}/uninstall_target.cmake" IMMEDIATE @ONLY)
+  "${PCL_BINARY_DIR}/uninstall_target.cmake" IMMEDIATE @ONLY)
 add_custom_target(${UNINSTALL_TARGET_NAME} "${CMAKE_COMMAND}" -P
-                  "${PCL_BINARY_DIR}/uninstall_target.cmake")
+  "${PCL_BINARY_DIR}/uninstall_target.cmake")
 
 ###
 # this is copy paste form http://www.itk.org/Wiki/CMake_RPATH_handling
 # in order to always make a full statement RPATH
 ###
-set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}" is_system_dir)
 if("${is_system_dir}" STREQUAL "-1")
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
 endif()
 
 ### ---[ Find universal dependencies
@@ -324,23 +324,29 @@ find_package(Threads REQUIRED)
 #    set(EIGEN3_FOUND ${Eigen3_FOUND})
 #endif()
 
-include_directories(/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/eigen/eigen3)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/eigen3/)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 set(EIGEN3_FOUND true)
 
-
 # FLANN
-find_package(FLANN 1.9.1)
-if(NOT FLANN_FOUND)
-  message(WARNING "Flann was not found, so many PCL modules will not be built!")
-else()
-  if(NOT (${FLANN_LIBRARY_TYPE} MATCHES ${PCL_FLANN_REQUIRED_TYPE}) AND NOT (${PCL_FLANN_REQUIRED_TYPE} MATCHES "DONTCARE"))
-    message(FATAL_ERROR "Flann was selected with ${PCL_FLANN_REQUIRED_TYPE} but found as ${FLANN_LIBRARY_TYPE}")
-  endif()
-endif()
+# find_package(FLANN 1.9.1)
+# if(NOT FLANN_FOUND)
+#   message(WARNING "Flann was not found, so many PCL modules will not be built!")
+# else()
+#   if(NOT (${FLANN_LIBRARY_TYPE} MATCHES ${PCL_FLANN_REQUIRED_TYPE}) AND NOT (${PCL_FLANN_REQUIRED_TYPE} MATCHES "DONTCARE"))
+#     message(FATAL_ERROR "Flann was selected with ${PCL_FLANN_REQUIRED_TYPE} but found as ${FLANN_LIBRARY_TYPE}")
+#   endif()
+# endif()
 
-set(LZ4_INCLUDE_DIR "/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/lz4/include")
-set(LZ4_LIBRARY_DIR "/Users/gammamacair/Documents/dev/PCL_PointCloud_MeshingTest/lib/lz4/lib")
+set(FLANN_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/android/flann/include")
+set(FLANN_LIBRARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/android/flann/lib/")
+set(FLANN_LIB "${FLANN_LIBRARY_DIR}/libflann_cpp.a")
+include_directories(${FLANN_INCLUDE_DIR})
+set(FLANN_FOUND true)
+add_library(FLANN::FLANN STATIC IMPORTED)
+
+set(LZ4_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/android/lz4/include/")
+set(LZ4_LIBRARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/android/lz4/lib")
 include_directories(${LZ4_INCLUDE_DIR})
 
 # libusb
@@ -368,7 +374,7 @@ if(PKG_CONFIG_FOUND)
     include_directories(SYSTEM "${PCL_SOURCE_DIR}/recognition/include/pcl/recognition/3rdparty/")
   endif()
 else()
-    include_directories(SYSTEM ${PCL_SOURCE_DIR}/recognition/include/pcl/recognition/3rdparty/)
+  include_directories(SYSTEM ${PCL_SOURCE_DIR}/recognition/include/pcl/recognition/3rdparty/)
 endif()
 
 # LibPNG
@@ -423,7 +429,7 @@ if(WITH_PCAP)
 endif()
 
 # OpenGL and GLUT
-option(WITH_OPENGL "Support for OpenGL" TRUE)
+option(WITH_OPENGL "Support for OpenGL" FALSE)
 if(WITH_OPENGL)
   include("${PCL_SOURCE_DIR}/cmake/pcl_find_gl.cmake")
 endif()

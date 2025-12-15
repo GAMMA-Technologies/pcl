@@ -15,7 +15,7 @@ endif()
 
 set(Boost_ADDITIONAL_VERSIONS
   "1.84.0" "1.84" "1.83.0" "1.83" "1.82.0" "1.82" "1.81.0" "1.81" "1.80.0" "1.80"
-  "1.79.0" "1.79" "1.78.0" "1.78" "1.77.0" "1.77" "1.76.0" "1.76" "1.75.0" "1.75" 
+  "1.79.0" "1.79" "1.78.0" "1.78" "1.77.0" "1.77" "1.76.0" "1.76" "1.75.0" "1.75"
   "1.74.0" "1.74" "1.73.0" "1.73" "1.72.0" "1.72" "1.71.0" "1.71" "1.70.0" "1.70"
   "1.69.0" "1.69" "1.68.0" "1.68" "1.67.0" "1.67" "1.66.0" "1.66" "1.65.1" "1.65.0" "1.65")
 
@@ -25,17 +25,23 @@ set(Boost_ADDITIONAL_VERSIONS
 # set(BOOST_SERIALIZATION_FOUND TRUE)
 #endif()
 
-set(Boost_NO_BOOST_CMAKE ON)
-set(Boost_INCLUDE_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/")
-set(Boost_LIBRARY_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/stage/ios-arm64/lib")
+if(IOS)
+  set(Boost_NO_BOOST_CMAKE ON)
+  set(Boost_INCLUDE_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/")
+  set(Boost_LIBRARY_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/stage/ios-arm64/lib")
+elseif(ANDROID)
+  set(Boost_NO_BOOST_CMAKE ON)
+  set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/android/boost/include/")
+  set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/android/boost/lib/")
+endif()
 
 # Required boost modules
 #set(BOOST_REQUIRED_MODULES filesystem iostreams system)
 #find_package(Boost 1.65.0 REQUIRED COMPONENTS ${BOOST_REQUIRED_MODULES})
 
 #if(Boost_FOUND)
-  set(BOOST_FOUND TRUE)
-  add_definitions(${Boost_LIB_DIAGNOSTIC_DEFINITIONS})
-  include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-  link_directories(${Boost_LIBRARY_DIRS})
+set(BOOST_FOUND TRUE)
+add_definitions(${Boost_LIB_DIAGNOSTIC_DEFINITIONS})
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
 #endif()
