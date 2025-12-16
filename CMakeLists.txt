@@ -324,7 +324,7 @@ find_package(Threads REQUIRED)
 #    set(EIGEN3_FOUND ${Eigen3_FOUND})
 #endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/eigen3/)
+include_directories(EIGEN3_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/eigen3/)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 set(EIGEN3_FOUND true)
 
