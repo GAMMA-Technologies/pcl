@@ -27,8 +27,8 @@ set(Boost_ADDITIONAL_VERSIONS
 
 if(IOS)
   set(Boost_NO_BOOST_CMAKE ON)
-  set(Boost_INCLUDE_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/")
-  set(Boost_LIBRARY_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/stage/ios-arm64/lib")
+  set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/include")
+  set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/lib/ios")
 elseif(ANDROID)
   set(Boost_NO_BOOST_CMAKE ON)
   set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/include/")
