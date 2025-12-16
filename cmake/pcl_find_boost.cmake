@@ -31,8 +31,8 @@ if(IOS)
   set(Boost_LIBRARY_DIRS "/Users/gammamacair/Documents/dev/boost-iosx/scripts/boost/stage/ios-arm64/lib")
 elseif(ANDROID)
   set(Boost_NO_BOOST_CMAKE ON)
-  set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/android/boost/include/")
-  set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/android/boost/lib/")
+  set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/include/")
+  set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/lib/android")
 endif()
 
 # Required boost modules
