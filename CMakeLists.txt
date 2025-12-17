@@ -295,10 +295,11 @@ endif()
 ### ---[ Find universal dependencies
 
 # OpenMP (optional)
-option(WITH_OPENMP "Build with parallelization using OpenMP" TRUE)
-if(WITH_OPENMP)
+option(WITH_OPENMP "Build with parallelization using OpenMP" FALSE)
+if(WITH_OPENMP AND !ANDROID)
   find_package(OpenMP COMPONENTS C CXX)
 endif()
+
 if(OpenMP_FOUND)
   string(APPEND CMAKE_C_FLAGS " ${OpenMP_C_FLAGS}")
   string(APPEND CMAKE_CXX_FLAGS " ${OpenMP_CXX_FLAGS}")
@@ -318,11 +319,6 @@ endif()
 # Threads (required)
 find_package(Threads REQUIRED)
 
-# Eigen3 (required)
-#find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-#if(NOT EIGEN3_FOUND AND Eigen3_FOUND)
-#    set(EIGEN3_FOUND ${Eigen3_FOUND})
-#endif()
 
 include_directories(EIGEN3_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/eigen3/)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
