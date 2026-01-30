@@ -3,8 +3,7 @@ set(SUBSYS_DESC "Point cloud surface library")
 set(SUBSYS_DEPS common search kdtree octree)
 set(SUBSYS_EXT_DEPS "")
 
-return()
-set(build False)
+set(build True)
 PCL_SUBSYS_OPTION(build "${SUBSYS_NAME}" "${SUBSYS_DESC}" ON)
 PCL_SUBSYS_DEPEND(build NAME ${SUBSYS_NAME} DEPS ${SUBSYS_DEPS} OPT_DEPS qhull vtk OpenMP)
 
@@ -116,25 +115,25 @@ set(POISSON_SOURCES
 )
 
 set(srcs
-  src/processing.cpp
-  src/ear_clipping.cpp
-  src/gp3.cpp
-  src/grid_projection.cpp
-  src/marching_cubes.cpp
-  src/marching_cubes_hoppe.cpp
-  src/marching_cubes_rbf.cpp
-  src/bilateral_upsampling.cpp
-  src/mls.cpp
-  src/organized_fast_mesh.cpp
-  src/simplification_remove_unused_vertices.cpp
-  src/surfel_smoothing.cpp
-  src/texture_mapping.cpp
-  ${VTK_SMOOTHING_SOURCE}
-  src/poisson.cpp
+  # src/processing.cpp
+  # src/ear_clipping.cpp
+  # src/gp3.cpp
+  # src/grid_projection.cpp
+  # src/marching_cubes.cpp
+  # src/marching_cubes_hoppe.cpp
+  # src/marching_cubes_rbf.cpp
+  # src/bilateral_upsampling.cpp
+  # src/mls.cpp
+  # src/organized_fast_mesh.cpp
+  # src/simplification_remove_unused_vertices.cpp
+  # src/surfel_smoothing.cpp
+  # src/texture_mapping.cpp
+  # ${VTK_SMOOTHING_SOURCE}
+  # src/poisson.cpp
   ${HULL_SOURCES}
-  ${POISSON_SOURCES}
-  ${OPENNURBS_SOURCES}
-  ${ON_NURBS_SOURCES}
+  # ${POISSON_SOURCES}
+  # ${OPENNURBS_SOURCES}
+  # ${ON_NURBS_SOURCES}
 )
 
 set(incs
