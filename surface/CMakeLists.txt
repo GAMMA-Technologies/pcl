@@ -64,10 +64,10 @@ if(BUILD_surface_on_nurbs)
       add_compile_options("-Wno-error=deprecated-copy")
     endif()
   endif()
-  
+
   include(src/3rdparty/opennurbs/openNURBS.cmake)
   include(src/on_nurbs/on_nurbs.cmake)
-  
+
   if(WITH_SYSTEM_ZLIB)
     find_package(ZLIB REQUIRED)
     list(APPEND ON_NURBS_LIBRARIES ${ZLIB_LIBRARIES})
