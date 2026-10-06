@@ -25,7 +25,14 @@ set(Boost_ADDITIONAL_VERSIONS
 # set(BOOST_SERIALIZATION_FOUND TRUE)
 #endif()
 
-if(IOS)
+if(APPLE AND NOT IOS)
+  # macOS: pass -DBoost_INCLUDE_DIRS=<gamma-slam-cpp>/external/boost/include so the archives see the
+  # same boost headers gamma-slam-cpp compiles against; falls back to this repo's vendored copy.
+  set(Boost_NO_BOOST_CMAKE ON)
+  if(NOT Boost_INCLUDE_DIRS)
+    set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/include")
+  endif()
+elseif(IOS)
   set(Boost_NO_BOOST_CMAKE ON)
   set(Boost_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/include")
   set(Boost_LIBRARY_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/boost/lib/ios")

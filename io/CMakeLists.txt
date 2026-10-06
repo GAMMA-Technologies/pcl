@@ -244,6 +244,27 @@ set(srcs
   ${RSSDK2_GRABBER_SOURCES}
 )
 
+# macOS needs the PCD/PLY/OBJ readers+writers (graph_exporter); iOS/Android keep the trimmed list above.
+# The HDL/VLP/RobotEye grabbers use boost::asio::io_service (removed in Boost >= 1.87), so they
+# only build against gamma-slam-cpp's vendored boost 1.86 headers, not newer Homebrew ones.
+if(APPLE AND NOT IOS)
+  list(APPEND srcs
+    src/pcd_grabber.cpp
+    src/pcd_io.cpp
+    src/vtk_io.cpp
+    src/ply_io.cpp
+    src/ascii_io.cpp
+    src/lzf_image_io.cpp
+    src/obj_io.cpp
+    src/ifs_io.cpp
+    src/image_grabber.cpp
+    src/hdl_grabber.cpp
+    src/vlp_grabber.cpp
+    src/robot_eye_grabber.cpp
+    src/auto_io.cpp
+  )
+endif()
+
 if(PNG_FOUND)
   list(APPEND srcs
     src/libpng_wrapper.cpp
