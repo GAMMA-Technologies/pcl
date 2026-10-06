@@ -30,3 +30,4 @@
 build/
 build-android/
 build-ios/
+build-macos-1.14/
