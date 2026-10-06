@@ -61,7 +61,12 @@ mark_as_advanced(PCL_ENABLE_SSE)
 option(PCL_ENABLE_AVX "Enable or Disable AVX optimizations." ON)
 mark_as_advanced(PCL_ENABLE_AVX)
 
-if(UNIX)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  # gamma-slam-cpp links these static libs without -march; native AVX here
+  # would split Eigen's alignment (32 vs 16 bytes) across that boundary.
+  option(PCL_ENABLE_MARCHNATIVE "Enable or Disable march native optimizations." OFF)
+  mark_as_advanced(PCL_ENABLE_MARCHNATIVE)
+elseif(UNIX)
   # Enable or Disable the check for March Native optimizations
   option(PCL_ENABLE_MARCHNATIVE "Enable or Disable march native optimizations." ON)
   mark_as_advanced(PCL_ENABLE_MARCHNATIVE)

@@ -265,6 +265,22 @@ if(APPLE AND NOT IOS)
   )
 endif()
 
+# Linux only: gamma-slam-cpp's graph exporter needs the file I/O (PCDWriter etc.).
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  list(APPEND srcs
+    src/pcd_grabber.cpp
+    src/pcd_io.cpp
+    src/vtk_io.cpp
+    src/ply_io.cpp
+    src/ascii_io.cpp
+    src/lzf_image_io.cpp
+    src/obj_io.cpp
+    src/ifs_io.cpp
+    src/image_grabber.cpp
+    src/auto_io.cpp
+  )
+endif()
+
 if(PNG_FOUND)
   list(APPEND srcs
     src/libpng_wrapper.cpp
